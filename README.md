@@ -1,6 +1,16 @@
 # Giraffael3
 
-An attempt to implement a chat app with Socket.IO
+## Status: Active development
+
+This is the latest iteration of my chat application and the authoritative repository for ongoing development.
+
+### Project History
+
+Giraffael-Archive: Initial implementation; archived.
+
+Giraffael2-Archive: Second iteration; archived.
+
+Giraffael: Current implementation; actively maintained.
 
 ## Prerequisites:
 
