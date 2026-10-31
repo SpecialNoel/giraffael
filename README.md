@@ -1,4 +1,6 @@
-# Giraffael3
+# :giraffe: Giraffael :giraffe:
+
+Long, but not alone.
 
 ## Status: Active development
 
