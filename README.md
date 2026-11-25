@@ -1,28 +1,45 @@
-# :giraffe: Giraffael :giraffe:
+# 🦒 Giraffael 🦒
 
-Long, but not alone.
+**Long, but not alone.**
 
-## Status: Active development
+## Status: Active Development
 
-This is the latest iteration of my chat application and the authoritative repository for ongoing development.
+Giraffael is the latest iteration of my chat application and the primary repository for all ongoing development.
 
-### Project History
+## Project History
 
-Giraffael-Archive: Initial implementation; archived.
+- **Giraffael-Archive** — Initial implementation (archived).
+- **Giraffael2-Archive** — Second iteration (archived).
+- **Giraffael** — Current implementation (actively maintained).
 
-Giraffael2-Archive: Second iteration; archived.
+## Prerequisites
 
-Giraffael: Current implementation; actively maintained.
+Before getting started, make sure the following dependencies are installed:
 
-## Prerequisites:
+- [Node.js](https://nodejs.org/en/download)
+- [Redis](https://redis.io/docs/latest/operate/oss_and_stack/install/archive/install-redis/)
 
-- Before you begin, make sure the following packages are installed:
-  - [_Node.js_](https://nodejs.org/en/download)
-  - [_Redis_](https://redis.io/docs/latest/operate/oss_and_stack/install/archive/install-redis/)
+## Getting Started (macOS)
 
-## Execution Instruction (Mac):
+Follow these steps to run the application locally:
 
-- Step 1: Navigate to the directory: `socket-chat`
-- Step 1.5: Make sure the bash file is executable, if haven't already: `chmod +x start-app.sh`
-- Step 2: Start the server: `./start-app.sh`
-- Step 3: Open http://localhost:3000 in your browser
+1. Navigate to the project directory: `socket-chat`.
+2. Install the project dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Make the startup script executable (if it isn't already):
+
+   ```bash
+   chmod +x start-app.sh
+   ```
+
+4. Start the application:
+
+   ```bash
+   ./start-app.sh
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to access the application.
