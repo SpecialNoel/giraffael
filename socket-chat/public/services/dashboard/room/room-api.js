@@ -46,8 +46,13 @@ async function getRoomsInfo() {
 
 // Send "fetch some messages" HTTP request to server, then receive an HTTP response from server
 async function fetchOlderMessages(roomCode, cursor) {
-    return await apiFetch(`/rooms/${roomCode}/messages?cursor=${cursor}`);
+    const params = new URLSearchParams();
+    if (cursor !== null && cursor !== undefined) params.set("cursor", JSON.stringify(cursor));
+    return await apiFetch(
+        `/rooms/${encodeURIComponent(roomCode)}/messages?${params.toString()}`
+    );
 }
+
 
 export { 
     createRoom, 

@@ -1,6 +1,7 @@
 // room-handler.js
 
 import { getMembersInRoom } from "../../db-services/membership/get-members-in-room-service.js";
+import { hasRoleByRoomCode } from "../../db-services/membership/has-role-by-room-code-service.js";
 import { getPaginatedConversation } from "../../db-services/message/get-paginated-conversation-service.js";
 import { getRoomInfo } from "../../db-services/room/get-room-info-service.js";
 
@@ -11,7 +12,14 @@ async function registerEnterRoomHandler(socket, roomCode, cursor) {
     const normalizedRoomCode = roomCode.trim();
     const roomCodeFormatValidnessResult = validateRoomCodeFormat(normalizedRoomCode);
     if (!roomCodeFormatValidnessResult.success) {
-        socket.emit("enterRoomFailureInvalidRoomCodeFormat", roomCodeFormatValidnessResult.message)
+        socket.emit("enterRoomFailureInvalidRoomCodeFormat", roomCodeFormatValidnessResult.message);
+        return;
+    }
+
+    // Check whether the user is a participant of the room
+    if (!await hasRoleByRoomCode(socket.user.userObjectId, normalizedRoomCode, "participant")) {
+        socket.emit("enterRoomFailureNotMemberOfRoom", "Failed to enter room: not a member of this room.");
+        return;
     }
 
     // Leave the user from the room if they are already in the room to prevent duplicated enter

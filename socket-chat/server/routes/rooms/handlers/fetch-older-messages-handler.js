@@ -11,7 +11,7 @@ async function handleFetchOlderMessages(req, res) {
         // Retrieve room code of the requesting room
         const roomCode = req.params.roomCode;
         const userObjectId = req.user.userObjectId
-        const { cursor } = req.query;
+        const { cursor: serializedCursor } = req.query;
         const normalizedRoomCode = roomCode.trim();
 
         // Validate input format
@@ -25,9 +25,24 @@ async function handleFetchOlderMessages(req, res) {
             );        
         }
 
+        // Parse cursor
+        let cursor = null;
+        if (serializedCursor !== undefined) {
+            try {
+                cursor = JSON.parse(serializedCursor);
+            } catch {
+                return res.status(400).json(
+                    errorResponse(
+                        "INVALID_CURSOR",
+                        "Cursor must be valid JSON"
+                    )
+                );
+            }
+        }
+
         // Check whether the user is a participant of the room
-        if (!hasRoleByRoomCode(userObjectId, normalizedRoomCode, "participant")) {
-            return res.status(401).json(
+        if (!await hasRoleByRoomCode(userObjectId, normalizedRoomCode, "participant")) {
+            return res.status(403).json(
                 errorResponse(
                     "NOT_MEMBER_OF_ROOM",
                     "Failed to fetch older messages due to not being a participant of the room"

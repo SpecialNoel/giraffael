@@ -29,6 +29,7 @@ const messageSchema = new Schema(
         type: {
             type: String,
             enum: ["text", "image", "file"],
+            required: true,
             default: "text"
         },
         // expiresAt enables message auto-deletion after it lived for a specified amount of time
@@ -43,7 +44,17 @@ const messageSchema = new Schema(
 );
 
 // Set the message to expire exactly at the time stored in expiresAt
-messageSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+messageSchema.index(
+    { expiresAt: 1 }, 
+    { expireAfterSeconds: 0 }
+);
+
+// Compound index for conversation pagination
+messageSchema.index({
+    room: 1,
+    createdAt: -1,
+    _id: -1
+});
 
 // The "Message" model
 const Message = mongoose.model("Message", messageSchema, "messages");

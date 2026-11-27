@@ -21,24 +21,33 @@ async function handleChat(socket, tmpId, content, callback) {
         }
 
         // Validate input format
-        const messageContentValidnessResult = validateMessageContentFormat(content.trim());
+        if (typeof content !== "string") {
+            callback({
+                status: "error",
+                message: "Invalid message content format"
+            });
+            return;
+        }
+        const trimmedContent = content.trim();
+        const messageContentValidnessResult = validateMessageContentFormat(trimmedContent);
         if (!messageContentValidnessResult.success) {
             callback({
                 status: "error",
                 message: messageContentValidnessResult.message
-            });            
+            });  
+            return;          
         }
-
-        // Notify the room about the message
-        broadcastChatMessage(socket, socket.activeRoomCode, tmpId, content);
 
         console.log(`Received a message from SocketID: ${socket.id}`);
 
         // Store the chat message to the database
         const message = await storeTextMessage(socket.activeRoomCode, 
                                                socket.user.userObjectId, 
-                                               content,
+                                               trimmedContent,
                                                "text");
+
+        // Notify the room about the message
+        broadcastChatMessage(socket, socket.activeRoomCode, tmpId, trimmedContent);
 
         // The callback function will be called to mark the acknowledgement from server on this event
         callback({

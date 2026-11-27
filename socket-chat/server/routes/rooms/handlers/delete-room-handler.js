@@ -26,7 +26,7 @@ async function handleDeleteRoom(req, res, io) {
         }
         
         // Handle case where received userObjectId does not match the room's creator id
-        if (!hasRoleByRoomCode(userObjectId, normalizedRoomCode, "creator")) {
+        if (!await hasRoleByRoomCode(userObjectId, normalizedRoomCode, "creator")) {
             return res.status(401).json(
                 errorResponse(
                     "NOT_CREATOR_OF_ROOM",

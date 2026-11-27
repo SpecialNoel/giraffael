@@ -9,6 +9,10 @@ export const INITIAL_MESSAGE_LIMIT = 10; // fetch 10 messages upon user entering
 export const MESSAGE_FETCH_LIMIT = 10; // fetch 10 older messages user scrolling to the top of conversation element
 
 // Token expiration
-// Note that token creation is based on milliseconds. e.g.: 15*60*1000 = 15 minutes
-export const ACCESS_TOKEN_EXPIRATION = 0.25*60*1000; // the access token expires 15 minutes after creation
-export const REFRESH_TOKEN_EXPIRATION = 0.5*60*1000; // the access token expires 1 day after creation
+export const ACCESS_TOKEN_EXPIRATION = process.env.NODE_ENV === "production" 
+    ? 15*60*1000    // access token expires after 15 minutes 
+    : 0.25*60*1000; // access token expires after 15 seconds
+
+export const REFRESH_TOKEN_EXPIRATION = process.env.NODE_ENV === "production" 
+    ? 30*60*1000    // refresh token expires after 30 minutes
+    : 0.50*60*1000; // refresh token expires after 30 seconds

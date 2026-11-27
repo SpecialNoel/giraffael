@@ -11,7 +11,7 @@ import {
 async function apiFetch(url, options = {}) {
     // Send the original request to server
     const response = await sendRequestToServer(url, options);
-    console.log("Original request response:", response.status);
+    // console.log("Original request response:", response.status);
     
     // Return the response as is, as long as the status code is not 401 (invalid credential error)
     if (response.status !== 401) return response;

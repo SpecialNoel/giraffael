@@ -25,7 +25,7 @@ async function handleFetchRoomInfo(req, res) {
         }
 
         // Check whether the user is a participant of the room
-        if (!hasRoleByRoomCode(userObjectId, normalizedRoomCode, "participant")) {
+        if (!await hasRoleByRoomCode(userObjectId, normalizedRoomCode, "participant")) {
             return res.status(403).json(
                 errorResponse(
                     "INVALID_USER_ROLE",

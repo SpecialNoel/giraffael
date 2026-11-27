@@ -15,6 +15,7 @@
         "unique-names-generator": "^4.7.1"
     },
     "scripts": {
-        "start": "node -r dotenv/config ./index.js"
+        "start": "node -r dotenv/config ./index.js",
+        "test": "node --test"
     }
 }

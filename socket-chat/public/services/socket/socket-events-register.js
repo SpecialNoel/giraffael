@@ -77,6 +77,11 @@ function registerSocketEvents(socket,
         alert(message);
     });
 
+    // Handler user entering a room without them being a participant of the room first
+    socket.on("enterRoomFailureNotMemberOfRoom", (message) => {
+        alert(message);
+    });
+
     // Handle room deletion event
     socket.on("roomDeleted", (data) => {
         alert(data.msg);
